@@ -68,10 +68,22 @@ func diningProblem(philosopher Philosopher, wg *sync.WaitGroup, forks map[int]*s
 	seated.Wait()
 
 	for i := hunger; i > 0; i-- {
-		forks[philosopher.leftFork].Lock()
-		fmt.Printf("\t\t%s takes the left fork [%v].\n", philosopher.name, philosopher.leftFork)
-		forks[philosopher.rightFork].Lock()
-		fmt.Printf("\t\t%s takes the right fork [%v].\n", philosopher.name, philosopher.rightFork)
+		if (philosopher.leftFork < philosopher.rightFork) {
+			forks[philosopher.leftFork].Lock()
+			fmt.Printf("\t\t%s takes the left fork [%v].\n", philosopher.name, philosopher.leftFork)
+			forks[philosopher.rightFork].Lock()
+			fmt.Printf("\t\t%s takes the right fork [%v].\n", philosopher.name, philosopher.rightFork)
+		} else {
+			forks[philosopher.rightFork].Lock()
+			fmt.Printf("\t\t%s takes the right fork [%v].\n", philosopher.name, philosopher.rightFork)
+			forks[philosopher.leftFork].Lock()
+			fmt.Printf("\t\t%s takes the left fork [%v].\n", philosopher.name, philosopher.leftFork)
+		}
+
+		// forks[philosopher.leftFork].Lock()
+		// fmt.Printf("\t\t%s takes the left fork [%v].\n", philosopher.name, philosopher.leftFork)
+		// forks[philosopher.rightFork].Lock()
+		// fmt.Printf("\t\t%s takes the right fork [%v].\n", philosopher.name, philosopher.rightFork)
 
 		fmt.Printf("\t%s has both forks [%v]-[%v] & is eating.\n", philosopher.name, philosopher.leftFork, philosopher.rightFork)
 		time.Sleep(eatTime)
