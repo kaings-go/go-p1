@@ -33,6 +33,17 @@ func main() {
 		fmt.Println("sending", i, "to channel...")
 		ch <- i
 		fmt.Println("sent", i, "to channel!")
+
+		// // the following code will print 2 different messages,
+		// // if i successfully sent to channel ch successfully, it will print successful message,
+		// // if i failed to sent to channel ch, it will print failed message
+		// // **channel ch is buffered channel of size 10, if channel ch is full, you wont be able to send anything into this channel, it will print failed message
+		// select {
+		// case ch <- i:
+		// 	fmt.Println("sent to channel successfully... ", i)
+		// default:
+		// 	fmt.Println("failed to send to channel")
+		// }
 	}
 
 	// close ch because ch no longer receiving any data
