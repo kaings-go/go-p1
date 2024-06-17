@@ -42,7 +42,7 @@ func (app *Config) render(w http.ResponseWriter, r *http.Request, t string, td *
 		td = &TemplateData{}
 	}
 
-	tmpl, err := template.ParseFiles(templateSlice...)
+	 tmpl, err := template.ParseFiles(templateSlice...)
 	if err != nil {
 		app.ErrorLog.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
